@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": false,
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": false,
+    "removeComments": false,
+    "noLib": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es2017",
+    "sourceMap": false,
+    "allowJs": false,
+    "strict": true,
+    "strictNullChecks": false
+  },
+  "include": [
+    "src/main/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
+

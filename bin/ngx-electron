@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+/**
+ * @license
+ */
+'use strict';
+require('../src/ngx-electron')
