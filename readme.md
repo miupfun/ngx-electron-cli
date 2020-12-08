@@ -12,9 +12,10 @@ ngx-electron init project-name
 
 cd project-name
 
-npm run start
+npm run serve
 
 ### 4 build electron
+
 Coming soon ....
 
 

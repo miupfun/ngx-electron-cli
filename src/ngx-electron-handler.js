@@ -91,13 +91,16 @@ class NgxElectronHandler {
         const packageJson = JSON.parse(packageJsonStr.toString('utf8'))
         packageJson.devDependencies = {
             [electronBuildName]: `^${electronBuildVersion}`,
-            ...packageJson.dependencies
+            ...packageJson.dependencies,
+            ...packageJson.devDependencies
         }
+
         packageJson.dependencies = {}
 
         packageJson.scripts = {
             serve: 'ng serve',
-            build: 'ng build'
+            build: 'ng build',
+            pack: 'ng pack'
         }
 
         const packageJsonData = JSON.stringify(packageJson, null, 4)
