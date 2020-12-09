@@ -38,8 +38,6 @@ class NgxElectronHandler {
         console.log(chalk.green('-------------create project success------------'))
         console.log()
         console.log()
-        console.log()
-        console.log()
         console.log(chalk.green(`>cd ${this.projectName}`))
         console.log(chalk.green(`>npm install`))
         console.log(chalk.green(`>npm run serve`))
@@ -107,8 +105,7 @@ class NgxElectronHandler {
 
         packageJson.scripts = {
             serve: 'ng serve',
-            build: 'ng build',
-            pack: 'ng pack',
+            build: 'ng build --prod=true',
             postinstall: 'electron-builder install-app-deps',
             postuninstall: 'electron-builder install-app-deps',
         }
@@ -141,10 +138,6 @@ class NgxElectronHandler {
             builder: '@miup/ngx-electron-builder:dev-server'
         }
 
-        project.architect.pack = {
-            ...project.architect.serve,
-            builder: '@miup/ngx-electron-builder:pack'
-        }
         fs.writeFileSync(this.angularConfigPath, JSON.stringify(config, null, 4), {encoding: 'utf8'})
     }
 
@@ -165,7 +158,6 @@ class NgxElectronHandler {
     }
 
     async addMainProcessFiles() {
-        // add main process files
         const mainDemoPath = path.join(__dirname, '../default')
         fs.copySync(mainDemoPath, this.angularProjectPath)
     }

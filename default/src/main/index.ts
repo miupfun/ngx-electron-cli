@@ -10,7 +10,7 @@ app.on('ready', () => {
             contextIsolation: false
         }
     });
-    w.loadURL('http://localhost:4200');
+    w.loadURL(process.env.$RENDER);
     w.once('ready-to-show', () => {
         w.show();
     });
