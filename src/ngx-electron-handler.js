@@ -62,6 +62,10 @@ class NgxElectronHandler {
             args.push('--routing=true')
             args.push('--minimal=true')
             args.push('--force=true')
+            args.push('--inline-template=false')
+            args.push('--inline-style=false')
+            args.push('--skip-git=true')
+            args.push('--skip-tests=true')
 
             const ngProgress = childProcess.spawn('ng', args, {
                 cwd: this.execPath,
@@ -122,18 +126,25 @@ class NgxElectronHandler {
         const afConfig = JSON.stringify(config).replace(/src/g, this.angularPathChange)
         config = JSON.parse(afConfig)
         const project = config.projects[config.defaultProject]
-        project.architect.build.builder = '@miup/ngx-electron-builder:build'
-        project.architect.serve.builder = '@miup/ngx-electron-builder:dev-server'
-        project.architect.build.options.mainProcess = "src/main/index.ts"
-        project.architect.build.options.mainProcessOutputName = "index.js"
-        project.architect.build.options.mainProcessTsConfig = "tsconfig.main.json"
-        project.architect.build.options.tsConfig = "tsconfig.render.json"
+
+        project.architect.build = {
+            mainProcess: "src/main/index.ts",
+            mainProcessOutputName: "index.js",
+            mainProcessTsConfig: "tsconfig.main.json",
+            tsConfig: "tsconfig.render.json",
+            ...project.architect.build,
+            builder: '@miup/ngx-electron-builder:build'
+        }
+
+        project.architect.serve = {
+            ...project.architect.serve,
+            builder: '@miup/ngx-electron-builder:dev-server'
+        }
+
         project.architect.pack = {
             ...project.architect.serve,
             builder: '@miup/ngx-electron-builder:pack'
         }
-
-
         fs.writeFileSync(this.angularConfigPath, JSON.stringify(config, null, 4), {encoding: 'utf8'})
     }
 
