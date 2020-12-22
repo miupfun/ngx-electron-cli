@@ -2,6 +2,8 @@
 
 ### 1 install
 
+npm i @angular/cli -g
+
 npm i @miup/ngx-electron-cli -g
 
 ### 2 create project
@@ -16,7 +18,9 @@ npm run serve
 
 ### 4 build electron
 
-Coming soon ....
+cd project-name
+
+npm run build
 
 
 

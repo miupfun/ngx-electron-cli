@@ -120,17 +120,19 @@ class NgxElectronHandler {
             flag: 'r'
         })
 
-        const afConfig = JSON.stringify(config).replace(/src/g, this.angularPathChange)
+        const afConfig = JSON.stringify(config).replace(/src\//g, this.angularPathChange + '/')
         config = JSON.parse(afConfig)
         const project = config.projects[config.defaultProject]
-
+        project.sourceRoot = this.angularPathChange
         project.architect.build = {
-            mainProcess: "src/main/index.ts",
-            mainProcessOutputName: "index.js",
-            mainProcessTsConfig: "tsconfig.main.json",
-            tsConfig: "tsconfig.render.json",
             ...project.architect.build,
-            builder: '@miup/ngx-electron-builder:build'
+            builder: '@miup/ngx-electron-builder:build',
+            options: {
+                ...project.architect.build.options,
+                tsConfig: "tsconfig.render.json",
+                mainProcess: "src/main/index.ts",
+                mainProcessTsConfig: "tsconfig.main.json",
+            }
         }
 
         project.architect.serve = {
